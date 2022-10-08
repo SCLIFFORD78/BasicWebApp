@@ -1,11 +1,19 @@
 <script>
+  import {setContext} from "svelte";
+  import Router from "svelte-spa-router";
+  import Main from "./pages/Main.svelte"
+
+
+  //assetssetContext("HiveTracker", new HiveTracker("http://localhost:4001"));
+  //setContext("HiveTracker", new HiveTracker("https://desolate-lowlands-41702.herokuapp.com"));
+  //setContext("HiveTracker", new HiveTracker("https://hdipbackend.herokuapp.com"));
+
+  let routes = {
+    "/": Main,
+
+  }
 </script>
 
 <div class="uk-container">
-  <div class="uk-flex uk-flex-center uk-flex-middle uk-margin">
-    <div class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center">
-      <div class="title"> Simple App</div>
-      <div class="uk-text-muted uk-text-small">Ready to Build</div>
-    </div>
-  </div>
+  <Router {routes}/>
 </div>
