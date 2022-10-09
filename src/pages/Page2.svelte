@@ -6,7 +6,7 @@
     <div class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center">
       <div class="title"> Page 2</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <a href="/">Page 1</a> 
+      <a href="/">Main</a> 
     </div>
   </div>
 </div>
