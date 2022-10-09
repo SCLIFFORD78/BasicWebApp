@@ -38,3 +38,10 @@ app.get('/api/candidates', async (req, res, next) => {
     ;
   });
 });
+
+app.post('/api/candidates', async (req, res, next) => {
+  const candidate = new Candidate(req.body)
+  console.log(req)
+  await candidate.save();
+  return  res.json(candidate)
+});

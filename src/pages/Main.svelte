@@ -32,7 +32,7 @@
             <tr class="uk-text-left">
               <td>{candidate.firstName}</td>
               <td>{candidate.lastName}</td>
-              <td><a href="/#/page2">{candidate._id}</a></td>
+              <td><a href="/#/add">{candidate._id}</a></td>
               <td>{candidate.office}</td>
             </tr>
           {/each}
