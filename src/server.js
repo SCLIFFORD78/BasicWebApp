@@ -33,7 +33,7 @@ app.get('/api/candidates', async (req, res, next) => {
       return res.json(candidates);
     }
   }).catch(err => {
-    console.log(err)
+    console.log(err);
     return res.sendStatus(500);
     ;
   });
