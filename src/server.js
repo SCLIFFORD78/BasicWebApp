@@ -43,7 +43,7 @@ app.get('/api/calves', async (req, res, next) => {
 app.post('/api/calves', async (req, res, next) => {
   const calf = new Calf(req.body)
   await calf.save();
-  return  res.json(calf)
+  return res.json(calf)
 });
 
 app.get('/api/calf/:id', async (req, res, next) => {
@@ -61,6 +61,24 @@ app.get('/api/calf/:id', async (req, res, next) => {
     ;
   });
 });
+app.put('/api/calf/:id', async (req, res, next) => {
+  Calf.findByIdAndUpdate(req.params.id, {
+    tag: req.body.tag,
+    feedPlan: req.body.feedPlan,
+    breed: req.body.breed,
+    DOB: req.body.DOB
+  },
+    function (err, docs) {
+      if (err) {
+        console.log(err)
+      }
+      else {
+        console.log("Updated User : ", docs);
+        return res
+      }
+    });
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/api/feedplan', async (req, res, next) => {
@@ -81,5 +99,5 @@ app.get('/api/feedplan', async (req, res, next) => {
 app.post('/api/feedplan', async (req, res, next) => {
   const feedplan = new FeedPlan(req.body)
   await feedplan.save();
-  return  res.json(feedplan)
+  return res.json(feedplan)
 });

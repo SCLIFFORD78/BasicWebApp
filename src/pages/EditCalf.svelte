@@ -12,16 +12,23 @@
   onMount(async () => {
     await fetch(`http://localhost:4000/api/calf/${$selectedCalf._id}`, {
       method: `GET`,
-
-
-    }).then((r) => r.json())
+    })
+      .then((r) => r.json())
       .then((data) => {
         console.log(data);
         calf = data;
       });
   });
   async function onSubmit() {
+    await fetch(`http://localhost:4000/api/calf/${$selectedCalf._id}`, {
+      method: `PUT`,
+      body: JSON.stringify(calf),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((r) => console.log(r));
 
+    window.location.href = "/";
   }
 </script>
 

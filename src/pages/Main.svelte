@@ -22,7 +22,7 @@
   }
 </script>
 
-<div class="uk-container">
+<div class="uk-container ">
   <div class="uk-flex uk-flex-center uk-flex-middle uk-margin">
     <div
       class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center"
