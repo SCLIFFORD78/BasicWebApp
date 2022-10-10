@@ -7,11 +7,11 @@ const calfSchema = Schema({
   breed: String,
   DOB: Date,
   tag: String,
-  feedPlan: String
-/*   feedPlan: {
+  //feedPlan: String
+  feedPlan: {
     type: Schema.Types.ObjectId,
     ref: "FeedPlan",
-  }, */
+  }
 });
 
 module.exports = Mongoose.model("Calf", calfSchema);

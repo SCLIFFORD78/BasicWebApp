@@ -47,7 +47,7 @@
               <td>{calf.breed}</td>
               <td>{calf.DOB}</td>
               <td>{calf._id}</td>
-              <td>{calf.feedPlan}</td>
+              <td>{calf.feedPlan.name}</td>
               <td>
                 <button
                   class="submit uk-button uk-button-primary uk-button-small uk-width-1-1"

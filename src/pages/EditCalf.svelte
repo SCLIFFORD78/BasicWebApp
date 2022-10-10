@@ -15,8 +15,9 @@
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        
         calf = data;
+        console.log("the calg ",calf);
       });
   });
   async function onSubmit() {
@@ -58,7 +59,7 @@
         </div>
         <div class="uk-margin">
           <input
-            bind:value={calf.feedPlan}
+            bind:value={calf.feedPlan['name']}
             class="uk-input large uk-card-hover"
             id="form-stacked-text"
             type="text"

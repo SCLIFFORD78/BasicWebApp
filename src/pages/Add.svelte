@@ -1,15 +1,18 @@
 <script>
+ import { selectedCalf , selectedFeedplan} from "../stores"
+ import FeedPlanDropDown from "../components/FeedPlanDropDown.svelte"
   let calf = {
     breed: "",
     DOB: Date.now(),
     tag: "",
-    feedPlan: "",
+    feedPlan: $selectedFeedplan,
   };
-
 
   async function onSubmit() {
     // Get the data from the form
-
+    
+    calf.feedPlan = $selectedFeedplan
+    console.log($selectedFeedplan)
     // Send data to the API
     await fetch(`http://localhost:4000/api/calves`, {
       method: `POST`,
@@ -28,16 +31,14 @@
 <div
   class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
 >
-<a href="/">Main</a> 
+  <a href="/">Main</a>
   <form
     on:submit|preventDefault={onSubmit}
     class="uk-form-stacked uk-text-left"
   >
     <fieldset class="uk-fieldset">
       <div class="uk-margin">
-        <label class="uk-form-label" for="form-stacked-text"
-          >ADD CALF</label
-        >
+        <label class="uk-form-label" for="form-stacked-text">ADD CALF</label>
 
         <div class="uk-margin">
           <div class="uk-form-controls">
@@ -52,24 +53,18 @@
           </div>
         </div>
         <div class="uk-margin">
-          <input
-              bind:value={calf.feedPlan}
-              class="uk-input large uk-card-hover"
-              id="form-stacked-text"
-              type="text"
-              name="feedPlan"
-              placeholder="feedPlan"
-            />
+          <FeedPlanDropDown ></FeedPlanDropDown>
+
         </div>
         <div class="uk-margin">
           <input
-              bind:value={calf.tag}
-              class="uk-input large uk-card-hover"
-              id="form-stacked-text"
-              type="text"
-              name="tag"
-              placeholder="tag"
-            />
+            bind:value={calf.tag}
+            class="uk-input large uk-card-hover"
+            id="form-stacked-text"
+            type="text"
+            name="tag"
+            placeholder="tag"
+          />
         </div>
       </div>
 

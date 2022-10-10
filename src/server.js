@@ -26,12 +26,20 @@ const db = mongoose.connection;
 
 
 app.get('/api/calves', async (req, res, next) => {
-  await Calf.find().then(calves => {
+  let ret = []
+  await Calf.find().then(async calves => {
     if (!calves) {
       return res.status(404).json({ error: "No Profile Found" });
     }
     else {
-      return res.json(calves);
+      for (let index = 0; index < calves.length; index++) {
+        const element = calves[index];
+        await Calf.findById(element._id).populate('feedPlan').then(r =>{
+          //console.log(r)
+          ret.push(r)
+        })
+      }
+      return res.json(ret);
     }
   }).catch(err => {
     console.log(err);
@@ -47,7 +55,7 @@ app.post('/api/calves', async (req, res, next) => {
 });
 
 app.get('/api/calf/:id', async (req, res, next) => {
-  await Calf.findById(req.params.id).then(calf => {
+  await Calf.findById(req.params.id).populate('feedPlan').then(calf => {
     if (!calf) {
       return res.status(404).json({ error: "No Profile Found" });
     }
@@ -88,6 +96,22 @@ app.get('/api/feedplan', async (req, res, next) => {
     }
     else {
       return res.json(feedPlans);
+    }
+  }).catch(err => {
+    console.log(err);
+    return res.sendStatus(500);
+    ;
+  });
+});
+
+app.get('/api/feedplan/:id', async (req, res, next) => {
+  await FeedPlan.findById(req.params.id).then(feedPlan => {
+    if (!feedPlan) {
+      return res.status(404).json({ error: "No Profile Found" });
+    }
+    else {
+      res.json(feedPlan)
+      return res.data;
     }
   }).catch(err => {
     console.log(err);
