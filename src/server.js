@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 4000;
-const Candidate = require("./models/candidate");
+const Calf = require("./models/calf");
+const FeedPlan = require("./models/feedPlan")
 
 
 // Middleware
@@ -13,7 +14,7 @@ app.use(cors());
 
 //Initiate MongoDB and start server
 app.listen(PORT, () => {
-  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/donation', { useNewUrlParser: true }).then((response) => {
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/feeder', { useNewUrlParser: true }).then((response) => {
     console.log(`Connected to MongoDB and server started on PORT ${PORT}`);
   }).catch((err) => {
     console.log(err);
@@ -24,13 +25,13 @@ const db = mongoose.connection;
 
 
 
-app.get('/api/candidates', async (req, res, next) => {
-  await Candidate.find().then(candidates => {
-    if (!candidates) {
+app.get('/api/calves', async (req, res, next) => {
+  await Calf.find().then(calves => {
+    if (!calves) {
       return res.status(404).json({ error: "No Profile Found" });
     }
     else {
-      return res.json(candidates);
+      return res.json(calves);
     }
   }).catch(err => {
     console.log(err);
@@ -39,9 +40,46 @@ app.get('/api/candidates', async (req, res, next) => {
   });
 });
 
-app.post('/api/candidates', async (req, res, next) => {
-  const candidate = new Candidate(req.body)
-  console.log(req)
-  await candidate.save();
-  return  res.json(candidate)
+app.post('/api/calves', async (req, res, next) => {
+  const calf = new Calf(req.body)
+  await calf.save();
+  return  res.json(calf)
+});
+
+app.get('/api/calf/:id', async (req, res, next) => {
+  await Calf.findById(req.params.id).then(calf => {
+    if (!calf) {
+      return res.status(404).json({ error: "No Profile Found" });
+    }
+    else {
+      res.json(calf)
+      return res.data;
+    }
+  }).catch(err => {
+    console.log(err);
+    return res.sendStatus(500);
+    ;
+  });
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/api/feedplan', async (req, res, next) => {
+  await FeedPlan.find().then(feedPlans => {
+    if (!feedPlans) {
+      return res.status(404).json({ error: "No Profile Found" });
+    }
+    else {
+      return res.json(feedPlans);
+    }
+  }).catch(err => {
+    console.log(err);
+    return res.sendStatus(500);
+    ;
+  });
+});
+
+app.post('/api/feedplan', async (req, res, next) => {
+  const feedplan = new FeedPlan(req.body)
+  await feedplan.save();
+  return  res.json(feedplan)
 });

@@ -1,15 +1,25 @@
 <script>
   import { onMount } from "svelte";
-  let candidates = [];
+  import { push } from "svelte-spa-router";
+  import { selectedCalf } from "../stores"
+  let calves = [];
 
   onMount(async () => {
-    await fetch(`http://localhost:4000/api/candidates`)
+    await fetch(`http://localhost:4000/api/calves`)
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        candidates = data;
+        calves = data;
       });
   });
+
+  async function selectedClafID(selectedClafID) {
+    
+    if (selectedClafID) {
+      $selectedCalf._id = selectedClafID
+      push("/editcalf");
+    }
+  }
 </script>
 
 <div class="uk-container">
@@ -19,21 +29,32 @@
     >
       <div class="title">Simple MongoDB List</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <a href="/#/page2">Page 2</a>
+      <a href="/#/add">Add Calf</a>
+      <a href="/#/feedplans">Feed Plans</a>
       <table class="uk-table">
-        {#if candidates}
+        {#if calves}
           <thead>
-            <th> First Name </th>
-            <th> Last Name </th>
+            <th> TAG </th>
+            <th> Breed </th>
+            <th> DOB</th>
             <th> ID </th>
-            <th> Office </th>
+            <th> Feed Plan </th>
+            <th> EDIT</th>
           </thead>
-          {#each candidates as candidate}
+          {#each calves as calf}
             <tr class="uk-text-left">
-              <td>{candidate.firstName}</td>
-              <td>{candidate.lastName}</td>
-              <td><a href="/#/add">{candidate._id}</a></td>
-              <td>{candidate.office}</td>
+              <td>{calf.tag}</td>
+              <td>{calf.breed}</td>
+              <td>{calf.DOB}</td>
+              <td>{calf._id}</td>
+              <td>{calf.feedPlan}</td>
+              <td>
+                <button
+                  class="submit uk-button uk-button-primary uk-button-small uk-width-1-1"
+                  on:click|preventDefault={() => selectedClafID(calf._id)}
+                  >Select
+                </button>
+              </td>
             </tr>
           {/each}
         {/if}

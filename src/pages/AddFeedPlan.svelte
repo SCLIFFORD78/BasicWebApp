@@ -1,9 +1,8 @@
 <script>
-  let calf = {
-    breed: "",
-    DOB: Date.now(),
-    tag: "",
-    feedPlan: "",
+  let feedPlan = {
+    name: "",
+    volume: 0,
+    type: "",
   };
 
 
@@ -11,9 +10,9 @@
     // Get the data from the form
 
     // Send data to the API
-    await fetch(`http://localhost:4000/api/calves`, {
+    await fetch(`http://localhost:4000/api/feedplan`, {
       method: `POST`,
-      body: JSON.stringify(calf),
+      body: JSON.stringify(feedPlan),
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,7 +27,7 @@
 <div
   class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
 >
-<a href="/">Main</a> 
+<a href="/">Main</a>
   <form
     on:submit|preventDefault={onSubmit}
     class="uk-form-stacked uk-text-left"
@@ -36,39 +35,39 @@
     <fieldset class="uk-fieldset">
       <div class="uk-margin">
         <label class="uk-form-label" for="form-stacked-text"
-          >ADD CALF</label
+          >ADD FEED PLAN</label
         >
 
         <div class="uk-margin">
           <div class="uk-form-controls">
             <input
-              bind:value={calf.breed}
+              bind:value={feedPlan.name}
               class="uk-input large uk-card-hover"
               id="form-stacked-text"
               type="text"
-              name="firstName"
-              placeholder="Breed"
+              name="name"
+              placeholder="name"
             />
           </div>
         </div>
         <div class="uk-margin">
           <input
-              bind:value={calf.feedPlan}
+              bind:value={feedPlan.volume}
               class="uk-input large uk-card-hover"
               id="form-stacked-text"
-              type="text"
-              name="feedPlan"
-              placeholder="feedPlan"
+              type="number"
+              name="volume"
+              placeholder="volume"
             />
         </div>
         <div class="uk-margin">
           <input
-              bind:value={calf.tag}
+              bind:value={feedPlan.type}
               class="uk-input large uk-card-hover"
               id="form-stacked-text"
               type="text"
-              name="tag"
-              placeholder="tag"
+              name="type"
+              placeholder="type"
             />
         </div>
       </div>
@@ -78,7 +77,7 @@
       <div class="uk-margin">
         <button
           class="submit uk-button uk-button-primary  uk-button-large uk-width-1-1"
-          >add calf</button
+          >add feedplan</button
         >
       </div>
     </fieldset>
