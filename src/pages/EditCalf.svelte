@@ -15,19 +15,30 @@
     })
       .then((r) => r.json())
       .then((data) => {
-        
         calf = data;
-        console.log("the calg ",calf);
+        console.log("the calg ", calf);
       });
   });
   async function onSubmit() {
     await fetch(`http://localhost:4000/api/calf/${$selectedCalf._id}`, {
       method: `PUT`,
-      body: JSON.stringify(calf),
+      //body: JSON.stringify(calf),
       headers: {
         "Content-Type": "application/json",
       },
     }).then((r) => console.log(r));
+
+    window.location.href = "/";
+  }
+
+  async function deleteCalf() {
+    await fetch(`http://localhost:4000/api/calf`, {
+      method: `DELETE`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify($selectedCalf),
+    }).then((res) => console.log(res));
 
     window.location.href = "/";
   }
@@ -59,7 +70,7 @@
         </div>
         <div class="uk-margin">
           <input
-            bind:value={calf.feedPlan['name']}
+            bind:value={calf.feedPlan["name"]}
             class="uk-input large uk-card-hover"
             id="form-stacked-text"
             type="text"
@@ -84,9 +95,33 @@
       <div class="uk-margin">
         <button
           class="submit uk-button uk-button-primary  uk-button-large uk-width-1-1"
-          >add calf</button
+          >edit calf</button
         >
       </div>
+      <button class="uk-button uk-button-danger" on:click|preventDefault={() => deleteCalf()} >Danger</button>
+      <button class="uk-button uk-button-link uk-card uk-card-small uk-card-hover">
+        <i
+            class="far fa-trash-alt fa-3x"
+            on:click|preventDefault={() => deleteCalf()} 
+            onclick="return confirm('Are you sure you want to delete hive CANNOT be undone!')"
+            style="color: red;"
+            uk-tooltip="title:Delete Hive;pos:bottom"
+          />
+        Danger</button>
+      
     </fieldset>
   </form>
+  <div class="uk-margin">
+        <button
+          class="uk-button uk-button-link uk-card uk-card-small uk-card-hover"
+        >
+          <i
+            class="far fa-trash-alt fa-3x"
+            on:click={deleteCalf}
+            onclick="return confirm('Are you sure you want to delete hive CANNOT be undone!')"
+            style="color: red;"
+            uk-tooltip="title:Delete Hive;pos:bottom"
+          /></button
+        >
+      </div>
 </div>

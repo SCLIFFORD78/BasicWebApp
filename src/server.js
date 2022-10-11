@@ -34,7 +34,7 @@ app.get('/api/calves', async (req, res, next) => {
     else {
       for (let index = 0; index < calves.length; index++) {
         const element = calves[index];
-        await Calf.findById(element._id).populate('feedPlan').then(r =>{
+        await Calf.findById(element._id).populate('feedPlan').then(r => {
           //console.log(r)
           ret.push(r)
         })
@@ -69,6 +69,7 @@ app.get('/api/calf/:id', async (req, res, next) => {
     ;
   });
 });
+
 app.put('/api/calf/:id', async (req, res, next) => {
   Calf.findByIdAndUpdate(req.params.id, {
     tag: req.body.tag,
@@ -85,6 +86,29 @@ app.put('/api/calf/:id', async (req, res, next) => {
         return res
       }
     });
+});
+
+// Delete a calf
+app.delete('/api/calf', async (req, res, next) => {
+  console.log(req.body)
+  // find calf by id and delete
+  Calf.findByIdAndDelete(req.body._id, function (err, docs) {
+    if (err) {
+      console.log(err)
+      return res.json({
+        message: 'Calf Not deleted ',
+        success: false,
+      });
+    }
+    else {
+      console.log("Deleted : ", docs);
+      return res.json({
+        message: 'Calf deleted successfully',
+        success: true,
+      });
+    }
+  });
+
 });
 
 
