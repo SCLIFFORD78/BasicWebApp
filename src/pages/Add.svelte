@@ -1,6 +1,11 @@
 <script>
- import { selectedCalf , selectedFeedplan} from "../stores"
+ import { mainBar, navBar,selectedCalf , selectedFeedplan} from "../stores"
  import FeedPlanDropDown from "../components/FeedPlanDropDown.svelte"
+
+ navBar.set({
+    bar: mainBar,
+  });
+
   let calf = {
     breed: "",
     DOB: Date.now(),
@@ -31,7 +36,6 @@
 <div
   class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
 >
-  <a href="/">Main</a>
   <form
     on:submit|preventDefault={onSubmit}
     class="uk-form-stacked uk-text-left"

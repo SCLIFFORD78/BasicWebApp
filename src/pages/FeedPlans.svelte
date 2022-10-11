@@ -1,5 +1,11 @@
 <script>
   import { onMount } from "svelte";
+  import { feedPlanBar, navBar,selectedCalf , selectedFeedplan} from "../stores"
+
+  navBar.set({
+    bar: feedPlanBar,
+  });
+
   let feedPlans = [];
 
   onMount(async () => {
@@ -17,9 +23,8 @@
     <div
       class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center"
     >
-      <div class="title">Simple MongoDB List</div>
+      <div class="title">Feed Plans MongoDB List</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <a href="/#/addfeedplans">Add Feed Plan</a>
       <table class="uk-table">
         {#if feedPlans}
           <thead>
@@ -33,7 +38,7 @@
               <td>{feedPlan.name}</td>
               <td>{feedPlan.volume}</td>
               <td>{feedPlan.type}</td>
-              <td><a href="/#/add">{feedPlan._id}</a></td>
+              <td>{feedPlan._id}</td>
             </tr>
           {/each}
         {/if}

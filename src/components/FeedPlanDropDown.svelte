@@ -15,7 +15,7 @@
 
   function addFeedPlan(id) {
     $selectedFeedplan= id;
-    console.log($selectedFeedplan, id)
+    console.log($selectedFeedplan)
   }
 </script>
 

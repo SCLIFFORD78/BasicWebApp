@@ -1,12 +1,18 @@
 <script>
-  import { selectedCalf } from "../stores";
+  import { mainBar, navBar, selectedCalf, selectedFeedplan } from "../stores";
+
   import { onMount } from "svelte";
+  import FeedPlanDropDown from "../components/FeedPlanDropDown.svelte";
+
+  navBar.set({
+    bar: mainBar,
+  });
 
   let calf = {
     breed: "",
     DOB: Date.now(),
     tag: "",
-    feedPlan: "",
+    feedPlan: $selectedFeedplan,
   };
 
   onMount(async () => {
@@ -20,15 +26,18 @@
       });
   });
   async function onSubmit() {
+    if ($selectedFeedplan) {
+      calf.feedPlan = $selectedFeedplan;
+    }
+
+    console.log("updated calf ", calf);
     await fetch(`http://localhost:4000/api/calf/${$selectedCalf._id}`, {
       method: `PUT`,
-      //body: JSON.stringify(calf),
+      body: JSON.stringify(calf),
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((r) => console.log(r));
-
-    window.location.href = "/";
+    }).then((r) => (window.location.href = "/"));
   }
 
   async function deleteCalf() {
@@ -47,7 +56,6 @@
 <div
   class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
 >
-  <a href="/">Main</a>
   <form
     on:submit|preventDefault={onSubmit}
     class="uk-form-stacked uk-text-left"
@@ -68,16 +76,8 @@
             />
           </div>
         </div>
-        <div class="uk-margin">
-          <input
-            bind:value={calf.feedPlan["name"]}
-            class="uk-input large uk-card-hover"
-            id="form-stacked-text"
-            type="text"
-            name="feedPlan"
-            placeholder="feedPlan"
-          />
-        </div>
+        <p>{$selectedFeedplan}</p>
+        <FeedPlanDropDown />
         <div class="uk-margin">
           <input
             bind:value={calf.tag}
@@ -98,20 +98,11 @@
           >edit calf</button
         >
       </div>
-      <button class="uk-button uk-button-danger" on:click|preventDefault={() => deleteCalf()} >Danger</button>
-      <button class="uk-button uk-button-link uk-card uk-card-small uk-card-hover">
-        <i
-            class="far fa-trash-alt fa-3x"
-            on:click|preventDefault={() => deleteCalf()} 
-            onclick="return confirm('Are you sure you want to delete hive CANNOT be undone!')"
-            style="color: red;"
-            uk-tooltip="title:Delete Hive;pos:bottom"
-          />
-        Danger</button>
-      
-    </fieldset>
-  </form>
-  <div class="uk-margin">
+      <button
+        class="uk-button uk-button-danger"
+        on:click|preventDefault={() => deleteCalf()}>DELETE</button
+      >
+      <div class="uk-margin">
         <button
           class="uk-button uk-button-link uk-card uk-card-small uk-card-hover"
         >
@@ -120,8 +111,10 @@
             on:click={deleteCalf}
             onclick="return confirm('Are you sure you want to delete hive CANNOT be undone!')"
             style="color: red;"
-            uk-tooltip="title:Delete Hive;pos:bottom"
+            uk-tooltip="title:Delete Calf;pos:bottom"
           /></button
         >
       </div>
+    </fieldset>
+  </form>
 </div>

@@ -1,11 +1,15 @@
 <script>
+  import { feedPlanBar, navBar, selectedCalf, selectedFeedplan } from "../stores";
+
+  navBar.set({
+    bar: feedPlanBar,
+  });
 
   let feedPlan = {
     name: "",
     volume: 0,
     type: "",
   };
-
 
   async function onSubmit() {
     // Get the data from the form
@@ -28,7 +32,6 @@
 <div
   class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
 >
-<a href="/">Main</a>
   <form
     on:submit|preventDefault={onSubmit}
     class="uk-form-stacked uk-text-left"
@@ -53,23 +56,23 @@
         </div>
         <div class="uk-margin">
           <input
-              bind:value={feedPlan.volume}
-              class="uk-input large uk-card-hover"
-              id="form-stacked-text"
-              type="number"
-              name="volume"
-              placeholder="volume"
-            />
+            bind:value={feedPlan.volume}
+            class="uk-input large uk-card-hover"
+            id="form-stacked-text"
+            type="number"
+            name="volume"
+            placeholder="volume"
+          />
         </div>
         <div class="uk-margin">
           <input
-              bind:value={feedPlan.type}
-              class="uk-input large uk-card-hover"
-              id="form-stacked-text"
-              type="text"
-              name="type"
-              placeholder="type"
-            />
+            bind:value={feedPlan.type}
+            class="uk-input large uk-card-hover"
+            id="form-stacked-text"
+            type="text"
+            name="type"
+            placeholder="type"
+          />
         </div>
       </div>
 

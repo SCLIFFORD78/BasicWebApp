@@ -71,6 +71,7 @@ app.get('/api/calf/:id', async (req, res, next) => {
 });
 
 app.put('/api/calf/:id', async (req, res, next) => {
+  console.log(req.body)
   Calf.findByIdAndUpdate(req.params.id, {
     tag: req.body.tag,
     feedPlan: req.body.feedPlan,
@@ -90,7 +91,6 @@ app.put('/api/calf/:id', async (req, res, next) => {
 
 // Delete a calf
 app.delete('/api/calf', async (req, res, next) => {
-  console.log(req.body)
   // find calf by id and delete
   Calf.findByIdAndDelete(req.body._id, function (err, docs) {
     if (err) {

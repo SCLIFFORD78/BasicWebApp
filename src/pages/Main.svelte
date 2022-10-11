@@ -1,7 +1,12 @@
 <script>
   import { onMount } from "svelte";
   import { push } from "svelte-spa-router";
-  import { selectedCalf } from "../stores"
+  import { mainBar, navBar,selectedCalf , selectedFeedplan} from "../stores"
+
+  navBar.set({
+    bar: mainBar,
+  });
+
   let calves = [];
 
   onMount(async () => {
@@ -27,10 +32,8 @@
     <div
       class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center"
     >
-      <div class="title">Simple MongoDB List</div>
+      <div class="title">Calf MongoDB List</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <a href="/#/add">Add Calf</a>
-      <a href="/#/feedplans">Feed Plans</a>
       <table class="uk-table">
         {#if calves}
           <thead>
