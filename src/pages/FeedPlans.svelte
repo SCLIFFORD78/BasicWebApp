@@ -18,14 +18,12 @@
   });
 </script>
 
-<div class="uk-container">
-  <div class="uk-flex uk-flex-center uk-flex-middle uk-margin">
     <div
-      class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center"
+      class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large uk-background-muted uk-border-rounded"
     >
       <div class="title">Feed Plans MongoDB List</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <table class="uk-table">
+      <table class="uk-table uk-table-striped uk-table-justify uk-table-middle uk-table-hover">
         {#if feedPlans}
           <thead>
             <th> Name </th>
@@ -44,5 +42,3 @@
         {/if}
       </table>
     </div>
-  </div>
-</div>

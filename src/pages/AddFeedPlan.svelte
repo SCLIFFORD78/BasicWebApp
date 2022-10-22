@@ -30,7 +30,7 @@
 </script>
 
 <div
-  class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
+  class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large uk-background-muted uk-border-rounded"
 >
   <form
     on:submit|preventDefault={onSubmit}

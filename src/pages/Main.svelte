@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { push } from "svelte-spa-router";
-  import { mainBar, navBar,selectedCalf , selectedFeedplan} from "../stores"
+  import { mainBar, navBar,selectedCalf , selectedFeedplan, io} from "../stores"
 
   navBar.set({
     bar: mainBar,
@@ -9,7 +9,10 @@
 
   let calves = [];
 
+
   onMount(async () => {
+    $io.outputs = "00001111"
+    await fetch(`http://localhost:4000/io/outputs`).then((r) => console.log(r))
     await fetch(`http://localhost:4000/api/calves`)
       .then((r) => r.json())
       .then((data) => {
@@ -27,14 +30,12 @@
   }
 </script>
 
-<div class="uk-container ">
-  <div class="uk-flex uk-flex-center uk-flex-middle uk-margin">
     <div
-      class="uk-width-2-3@m uk-card uk-card-default uk-padding-small uk-text-center"
-    >
-      <div class="title">Calf MongoDB List</div>
+      class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large uk-background-muted uk-border-rounded"
+    > 
+      <div class="title">Calf MongoDB List{$io.outputs}</div>
       <div class="uk-text-muted uk-text-small">Fun things to do</div>
-      <table class="uk-table">
+      <table class="uk-table uk-table-striped uk-table-justify uk-table-middle uk-table-hover">
         {#if calves}
           <thead>
             <th> TAG </th>
@@ -45,7 +46,7 @@
             <th> EDIT</th>
           </thead>
           {#each calves as calf}
-            <tr class="uk-text-left">
+            <tr class="uk-text-left ">
               <td>{calf.tag}</td>
               <td>{calf.breed}</td>
               <td>{calf.DOB}</td>
@@ -63,5 +64,3 @@
         {/if}
       </table>
     </div>
-  </div>
-</div>

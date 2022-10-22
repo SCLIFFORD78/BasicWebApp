@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w | nodemon ./src/server.js",
+    "build": "rollup -c | ",
+    "dev": "rollup -c -w | nodemon ./src/server.js ",
     "start": "sirv public --no-clear"
   },
   "devDependencies": {

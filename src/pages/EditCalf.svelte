@@ -1,5 +1,5 @@
 <script>
-  import { mainBar, navBar, selectedCalf, selectedFeedplan } from "../stores";
+  import { mainBar, navBar, selectedCalf, selectedFeedplan, io } from "../stores";
 
   import { onMount } from "svelte";
   import FeedPlanDropDown from "../components/FeedPlanDropDown.svelte";
@@ -54,7 +54,7 @@
 </script>
 
 <div
-  class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large"
+  class="uk-margin  uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large uk-border-rounded"
 >
   <form
     on:submit|preventDefault={onSubmit}
@@ -62,7 +62,7 @@
   >
     <fieldset class="uk-fieldset">
       <div class="uk-margin">
-        <label class="uk-form-label" for="form-stacked-text">ADD CALF</label>
+        <label class="uk-form-label" for="form-stacked-text">ADD CALF{$io.outputs}</label>
 
         <div class="uk-margin">
           <div class="uk-form-controls">

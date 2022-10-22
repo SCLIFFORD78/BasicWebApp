@@ -7,8 +7,7 @@
   import AddFeedPlan from "./pages/AddFeedPlan.svelte";
   import EditCalf from "./pages/EditCalf.svelte";
   import Navigator from "./components/Navigator.svelte";
-
-
+ 
 
   let routes = {
     "/": Main,
