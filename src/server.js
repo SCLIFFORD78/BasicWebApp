@@ -54,8 +54,9 @@ app.listen(PORT, () => {
 
 const db = mongoose.connection;
 
-app.get('/io/outputs',  (req, res, next) => {
-  lights = "00000001"
+app.post('/io/outputs',  (req, res, next) => {
+  const io = req.body
+  lights = io.outputs
   integer = parseInt(lights, 2);
   retMessage = []
   retMessage[0] = integer

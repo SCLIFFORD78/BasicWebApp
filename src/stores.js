@@ -42,6 +42,12 @@ export let mainBar = [
     colour: "rgb(102, 153, 255)",
     link: "/#/feedplans",
   },
+  {
+    title: "Controls",
+    icon: "icon:cog; ratio: 2",
+    colour: "rgb(102, 153, 255)",
+    link: "/#/controls",
+  },
 
 ];
 

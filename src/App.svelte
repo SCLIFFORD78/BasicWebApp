@@ -7,6 +7,7 @@
   import AddFeedPlan from "./pages/AddFeedPlan.svelte";
   import EditCalf from "./pages/EditCalf.svelte";
   import Navigator from "./components/Navigator.svelte";
+  import Controls from "./pages/Controls.svelte"
  
 
   let routes = {
@@ -15,7 +16,8 @@
     "/add" : Add,
     "/feedplans": FeedPlans,
     "/addfeedplans": AddFeedPlan,
-    "/editcalf": EditCalf
+    "/editcalf": EditCalf,
+    "/controls": Controls
   }
 </script>
 
