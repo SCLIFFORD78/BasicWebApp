@@ -51,7 +51,7 @@
       $io.outputs = outputs
       await fetch(`http://localhost:4000/io/outputs`, {
         method: `POST`,
-        body: JSON.stringify(io),
+        body: JSON.stringify($io),
         headers: {
           "Content-Type": "application/json",
         },

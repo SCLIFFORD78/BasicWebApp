@@ -11,8 +11,6 @@
 
 
   onMount(async () => {
-    $io.outputs = "00001111"
-    await fetch(`http://localhost:4000/io/outputs`).then((r) => console.log(r))
     await fetch(`http://localhost:4000/api/calves`)
       .then((r) => r.json())
       .then((data) => {
