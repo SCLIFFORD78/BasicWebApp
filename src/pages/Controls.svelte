@@ -22,32 +22,19 @@
 }
 
   onMount(async () => {
-    for (let index = 0; index < 8; index++) {
-      const element = $io.outputs[index];
-      if (element == 1){
-        outputs = setCharAt(outputs,index,"1")
-      }
-      
-    }
-    console.log(outputs)
+    await fetch(`http://localhost:4000/io/outputs`)
+      .then((r) => r.json())
+      .then((data) => {
+        //console.log(data);
+        $io.outputs = parseInt(data.data[0]).toString(2).padStart(8,"0")
+      });
+    outputs = $io.outputs
   });
 
   async function lampON(outputBit) {
+    outputs = $io.outputs
     if (outputs[outputBit] == 0) {
       outputs = setCharAt(outputs,outputBit,"1")
-      console.log(outputs)
-      const test ={outputs:outputs}
-      io.set(test)
-      await fetch(`http://localhost:4000/io/outputs`, {
-        method: `POST`,
-        body: JSON.stringify($io),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((r) => console.log());
-    } else if(outputs[outputBit] == 1) {
-      outputs = setCharAt(outputs,outputBit,"0")
-      console.log(outputs)
       $io.outputs = outputs
       await fetch(`http://localhost:4000/io/outputs`, {
         method: `POST`,
@@ -55,7 +42,17 @@
         headers: {
           "Content-Type": "application/json",
         },
-      }).then((r) => console.log());
+      }).then((r) => console.log(r));
+    } else if(outputs[outputBit] == 1) {
+      outputs = setCharAt(outputs,outputBit,"0")
+      $io.outputs = outputs
+      await fetch(`http://localhost:4000/io/outputs`, {
+        method: `POST`,
+        body: JSON.stringify($io),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((r) => console.log(r));
     }
   }
 </script>
