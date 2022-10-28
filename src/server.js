@@ -11,6 +11,7 @@ var dgram = require("dgram");
 var server = dgram.createSocket("udp4");
 
 var lights = "00000000"
+let inFromPLC;
 
 
 server.on("message", function (msg, rinfo) {
@@ -22,6 +23,7 @@ server.on("message", function (msg, rinfo) {
   //var test = stores.io.subscribe()
   //console.log(test)
   integer = parseInt(lights, 2);
+  inFromPLC = msg
   retMessage = msg
   PC_inputs = msg[0]
   retMessage[0] = integer
@@ -60,10 +62,14 @@ app.post('/io/outputs',  (req, res, next) => {
   integer = parseInt(lights, 2);
   retMessage = []
   retMessage[0] = integer
-  retMessage[1] = integer
+  //retMessage[1] = integer
   const buff = Buffer.from(retMessage)
-  server.send(retMessage, 1202, "192.168.2.20")
+  server.send(buff, 1202, "192.168.2.20")
   return res
+});
+
+app.get('/io/outputs', async (req, res, next) => {
+  return res.json(inFromPLC)
 });
 
 app.get('/api/calves', async (req, res, next) => {
