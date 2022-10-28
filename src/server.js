@@ -64,7 +64,7 @@ app.post('/io/outputs',  (req, res, next) => {
   retMessage[0] = integer
   //retMessage[1] = integer
   const buff = Buffer.from(retMessage)
-  server.send(buff, 1202, "192.168.2.20")
+  server.send(retMessage, 1202, "192.168.2.20")
   return res
 });
 
