@@ -36,7 +36,7 @@ server.on("listening", function () {
     address.address + ":" + address.port);
 });
 
-server.bind(1202, "192.168.2.99");
+//server.bind(1202, "192.168.2.99"); Uncomment to bind to PLC
 // server listening 0.0.0.0:41234
 
 
